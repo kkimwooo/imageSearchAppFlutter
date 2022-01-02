@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/data/api.dart';
 import 'package:flutter_clean_architecture/model/photo.dart';
 import 'package:flutter_clean_architecture/ui/widget/photo_widget.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
