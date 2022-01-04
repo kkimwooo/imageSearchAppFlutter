@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/data/api.dart';
+import 'package:flutter_clean_architecture/data/photo_provider.dart';
 import 'package:flutter_clean_architecture/model/photo.dart';
 import 'package:flutter_clean_architecture/ui/widget/photo_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final api = PixbayApi();
-
   final _controller = TextEditingController();
 
   List<Photo> _photos = [];
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final photoProvider = PhotoProvider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -49,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 suffixIcon: IconButton(
                   //onPressed 안에서 사용할 함수가 async await 이기 때문에 여기서도 async await선언
                   onPressed: () async {
-                    final photos = await api.fetch(_controller.text);
+                    final photos =
+                        await photoProvider.api.fetch(_controller.text);
                     //State 변경이 일어나고 화면 새로 그려야 하므로 setState 사용
                     setState(() {
                       _photos = photos;

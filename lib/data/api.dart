@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_clean_architecture/model/photo.dart';
 import 'package:http/http.dart' as http;
 
-class PixbayApi {
+class PixabayApi {
   final baseUrl = 'https://pixabay.com/api/';
   final key = '24999262-d78d2a61a8beebcf2664f2cde';
 
