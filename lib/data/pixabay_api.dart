@@ -9,8 +9,10 @@ class PixabayApi implements PhotoApiRepository {
 
   //http 통신 코드 비동기 처리 필요하기 때문에 Future
   @override
-  Future<List<Photo>> fetch(String query) async {
-    final response = await http.get(
+  Future<List<Photo>> fetch(String query, {http.Client? client}) async {
+    client ??= http.Client();
+
+    final response = await client.get(
         Uri.parse('$baseUrl?key=$key&q=$query&image_type=photo&pretty=true'));
     //Map으로 가져와서 json 형태로 사용
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
