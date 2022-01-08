@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:flutter_clean_architecture/data/photo_api_repository.dart';
 import 'package:flutter_clean_architecture/model/photo.dart';
 import 'package:http/http.dart' as http;
 
-class PixabayApi {
+class PixabayApi implements PhotoApiRepository {
   final baseUrl = 'https://pixabay.com/api/';
   final key = '24999262-d78d2a61a8beebcf2664f2cde';
 
   //http 통신 코드 비동기 처리 필요하기 때문에 Future
+  @override
   Future<List<Photo>> fetch(String query) async {
     final response = await http.get(
         Uri.parse('$baseUrl?key=$key&q=$query&image_type=photo&pretty=true'));
