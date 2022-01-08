@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/data/api.dart';
 import 'package:flutter_clean_architecture/data/photo_provider.dart';
 import 'package:flutter_clean_architecture/model/photo.dart';
 import 'package:flutter_clean_architecture/ui/widget/photo_widget.dart';
@@ -23,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final photoProvider = PhotoProvider.of(context);
+    final viewModel = PhotoProvider.of(context).viewModel;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 suffixIcon: IconButton(
                   //onPressed 안에서 사용할 함수가 async await 이기 때문에 여기서도 async await선언
                   onPressed: () async {
-                    photoProvider.fetch(_controller.text);
+                    viewModel.fetch(_controller.text);
                   },
                   icon: const Icon(Icons.search),
                 ),
@@ -59,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //Column 안에 정해지지 않은 사이즈의 위젯이 들어오면 오류 발생
           //그래서 Expanded 위젯을 사용하여 사이즈를 정해준다.
           StreamBuilder<List<Photo>>(
-              stream: photoProvider.photoStream,
+              stream: viewModel.photoStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
